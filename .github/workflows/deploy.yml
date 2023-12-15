@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  up:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,6 +16,8 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - run: ssh -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} hostname
 
       - run: docker compose up --build -d
         env:
