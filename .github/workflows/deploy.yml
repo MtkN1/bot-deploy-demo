@@ -19,6 +19,6 @@ jobs:
 
       - run: ssh -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} hostname
 
-      - run: docker compose up --build -d
-        env:
-          DOCKER_HOST: 'ssh://${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}'
+      - run: docker -H ssh://${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} compose up --build -d
+
+      - run: docker version
